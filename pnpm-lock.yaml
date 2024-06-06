@@ -204,8 +204,8 @@ importers:
         specifier: 2.0.0
         version: 2.0.0
       markdown-to-jsx:
-        specifier: npm:@innei/markdown-to-jsx@7.4.5-fork.1
-        version: '@innei/markdown-to-jsx@7.4.5-fork.1(react@18.3.1)'
+        specifier: 7.4.7
+        version: 7.4.7(react@18.3.1)
       marked:
         specifier: 12.0.2
         version: 12.0.2
@@ -1106,12 +1106,6 @@ packages:
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
-
-  '@innei/markdown-to-jsx@7.4.5-fork.1':
-    resolution: {integrity: sha512-KG953B/Cf207pnIBLRrWOLRBIpRZBdHw2I9cLlK2asjqViYj9wukNN7P1SggOS9dcFh8m+oVd+2NYlTz5hKu7Q==}
-    engines: {node: '>= 10'}
-    peerDependencies:
-      react: '>= 0.14.0'
 
   '@innei/prettier@0.13.2':
     resolution: {integrity: sha512-AgIqEvglI59SquVupWKTf/K3EfjfyNKv+KGkdtDbE7uEZVJOtXW+IMdUQrpuoeqG6Ubiy4iJYPv2ZO2P89mhuw==}
@@ -3191,6 +3185,12 @@ packages:
 
   markdown-table@3.0.3:
     resolution: {integrity: sha512-Z1NL3Tb1M9wH4XESsCDEksWoKTdlUafKc4pt0GRwjUyXaCFZ+dc3g2erqB6zm3szA2IUSi7VnPI+o/9jnxh9hw==}
+
+  markdown-to-jsx@7.4.7:
+    resolution: {integrity: sha512-0+ls1IQZdU6cwM1yu0ZjjiVWYtkbExSyUIFU2ZeDIFuZM1W42Mh4OlJ4nb4apX4H8smxDHRdFaoIVJGwfv5hkg==}
+    engines: {node: '>= 10'}
+    peerDependencies:
+      react: '>= 0.14.0'
 
   marked@12.0.2:
     resolution: {integrity: sha512-qXUm7e/YKFoqFPYPa3Ukg9xlI5cyAtGmyEIzMfW//m6kXwCy2Ps9DYf5ioijFKQ8qyuscrHoY04iJGctu2Kg0Q==}
@@ -5736,10 +5736,6 @@ snapshots:
 
   '@iconify/types@2.0.0': {}
 
-  '@innei/markdown-to-jsx@7.4.5-fork.1(react@18.3.1)':
-    dependencies:
-      react: 18.3.1
-
   '@innei/prettier@0.13.2':
     dependencies:
       '@ianvs/prettier-plugin-sort-imports': 4.2.1(prettier@3.3.0)
@@ -7948,6 +7944,10 @@ snapshots:
   markdown-escape@2.0.0: {}
 
   markdown-table@3.0.3: {}
+
+  markdown-to-jsx@7.4.7(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   marked@12.0.2: {}
 

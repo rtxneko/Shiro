@@ -1,6 +1,6 @@
+import { clsx } from 'clsx'
 /* eslint-disable tailwindcss/migration-from-tailwind-2 */
 import type React from 'react'
-import { clsx } from 'clsx'
 import type { FC } from 'react'
 
 import {
@@ -39,8 +39,9 @@ const iconColorMap = {
   error: 'text-red-500',
 }
 
+export type BannerType = 'warning' | 'error' | 'success' | 'info' | 'warn'
 export const Banner: FC<{
-  type: 'warning' | 'error' | 'success' | 'info' | 'warn'
+  type: BannerType
   message?: string | React.ReactNode
   className?: string
   children?: React.ReactNode

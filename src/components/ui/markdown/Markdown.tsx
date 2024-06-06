@@ -1,12 +1,12 @@
 'use client'
 
-/* eslint-disable react-hooks/rules-of-hooks */
-import type React from 'react'
 import { Fragment, memo, Suspense, useMemo, useRef } from 'react'
 import { clsx } from 'clsx'
 import { compiler, sanitizeUrl } from 'markdown-to-jsx'
 import Script from 'next/script'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
+/* eslint-disable react-hooks/rules-of-hooks */
+import type React from 'react'
 import type { FC, PropsWithChildren } from 'react'
 
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
@@ -124,7 +124,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
 
         extendsRules: {
           heading: {
-            react(node, output, state) {
+            render(node, output, state) {
               return (
                 <MHeader id={node.id} level={node.level} key={state?.key}>
                   {output(node.content, state!)}
@@ -133,7 +133,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
             },
           },
           gfmTask: {
-            react(node, _, state) {
+            render(node, _, state) {
               return (
                 <input
                   type="checkbox"
@@ -146,7 +146,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           },
 
           link: {
-            react(node, output, state) {
+            render(node, output, state) {
               const { target, title } = node
 
               let realText = ''
@@ -171,7 +171,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           },
 
           footnoteReference: {
-            react(node, output, state) {
+            render(node, output, state) {
               const { footnoteMap, content } = node
               const footnote = footnoteMap.get(content)
               const linkCardId = (() => {
@@ -238,13 +238,13 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
             },
           },
           // htmlBlock: {
-          //   react(node, output, state) {
+          //   render(node, output, state) {
           //     console.log(node, state)
           //     return null
           //   },
           // },
           codeBlock: {
-            react(node, output, state) {
+            render(node, output, state) {
               return (
                 <CodeBlockRender
                   key={state?.key}
@@ -256,7 +256,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
             },
           },
           codeInline: {
-            react(node, output, state) {
+            render(node, output, state) {
               return (
                 <code
                   key={state?.key}
@@ -269,7 +269,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           },
 
           list: {
-            react(node, output, state) {
+            render(node, output, state) {
               const Tag = node.ordered ? 'ol' : 'ul'
 
               return (

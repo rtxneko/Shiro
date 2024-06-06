@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   parseCaptureInline,
   Priority,
@@ -7,16 +6,16 @@ import {
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
 // ||Spoiler||
-export const SpoilerRule: MarkdownToJSX.Rule = {
+export const SpoilerRule: MarkdownToJSX.Rule<MarkdownToJSX.MarkedTextNode> = {
   match: simpleInlineRegex(
     /^\|\|((?:\[.*?\]|<.*?>(?:.*?<.*?>)?|`.*?`|.)*?)\|\|/,
   ),
   order: Priority.LOW,
   parse: parseCaptureInline,
-  react(node, output, state?) {
+  render(node, output, state?) {
     return (
       <del key={state?.key} className="spoiler" title="你知道的太多了">
-        {output(node.content, state!)}
+        {output(node.children, state!)}
       </del>
     )
   },

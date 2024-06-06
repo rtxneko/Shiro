@@ -1,19 +1,18 @@
-import type { MarkdownToJSX } from 'markdown-to-jsx'
 import {
-  Priority,
   parseCaptureInline,
+  Priority,
   simpleInlineRegex,
 } from 'markdown-to-jsx'
-import React from 'react'
+import type { MarkdownToJSX } from 'markdown-to-jsx'
 
 //  ++Insert++
-export const InsertRule: MarkdownToJSX.Rule = {
+export const InsertRule: MarkdownToJSX.Rule<MarkdownToJSX.MarkedTextNode> = {
   match: simpleInlineRegex(
     /^\+\+((?:\[.*?\]|<.*?>(?:.*?<.*?>)?|`.*?`|.)*?)\+\+/,
   ),
   order: Priority.LOW,
   parse: parseCaptureInline,
-  react(node, output, state?) {
-    return <ins key={state?.key}>{output(node.content, state!)}</ins>
+  render(node, output, state?) {
+    return <ins key={state?.key}>{output(node.children, state!)}</ins>
   },
 }

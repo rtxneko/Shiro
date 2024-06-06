@@ -1,28 +1,33 @@
-import React from 'react'
-import { Priority, simpleInlineRegex } from 'markdown-to-jsx'
+import { Priority } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
 import { SocialSourceLink } from '../../rich-link/SocialSourceLink'
 
 // [Innei]{GH@Innei} {TW@Innei} {TG@Innei}
 export const MentionRule: MarkdownToJSX.Rule = {
-  match: simpleInlineRegex(
-    /^(\[(?<displayName>.*?)\])?\{((?<prefix>(GH)|(TW)|(TG))@(?<name>\w+\b))\}\s?(?!\[.*?\])/,
-  ),
-  order: Priority.MIN,
+  // match: simpleInlineRegex(
+  //   /^(\[(?<displayName>.*?)\])?\{((?<prefix>(GH)|(TW)|(TG))@(?<name>\w+\b))\}\s?(?!\[.*?\])/,
+  // ),
+  match: (source) => {
+    console.log('source mt', source)
+    return /^(\[(?<displayName>.*?)\])?\{((?<prefix>(GH)|(TW)|(TG))@(?<name>\w+\b))\}\s?(?!\[.*?\])/.exec(
+      source,
+    )
+  },
+  order: Priority.MAX,
   parse(capture) {
     const { groups } = capture
 
     if (!groups) {
-      return {}
+      return null
     }
     return {
       content: { ...groups },
       type: 'mention',
     }
   },
-  react(result, _, state) {
-    const { content } = result
+  render(result, _, state) {
+    const { content } = result as any
     if (!content) {
       return null as any
     }

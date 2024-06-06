@@ -11,7 +11,6 @@ import type { FC } from 'react'
 
 import { LinkState, LinkType, RequestError } from '@mx-space/api-client'
 
-import { NotSupport } from '~/components/common/NotSupport'
 import { Avatar } from '~/components/ui/avatar'
 import { StyledButton } from '~/components/ui/button'
 import { Collapse } from '~/components/ui/collapse'
@@ -263,21 +262,27 @@ const ApplyLinkInfo: FC = () => {
     refetchOnMount: 'always',
   })
   const { present } = useModalStack()
-  if (!canApply) {
-    return <NotSupport className="mt-20" text="主人禁止了申请友链。" />
-  }
+  // if (!canApply) {
+  //   return <NotSupport className="mt-20" text="主人禁止了申请友链。" />
+  // }
   return (
     <>
       <div className="prose mt-20">
-        <Markdown>
-          {[
+        <Markdown options={{ forceBlock: true }}>
+          {/* {[
             `- 申请友链前请**务必确保**贵站有我站的友链，若审批通过后移除本站链接，本站也将移除友链，并加入黑名单。`,
             `- 若站点长时间无法访问，我会删除您的友链，恢复后可再次申请。`,
             `- 确保您的网站不存在政治敏感问题及违法内容。没有过多的广告、无恶意软件、脚本。且转载文章须注明出处。`,
             `- 确保站点全局启用 HTTPS`,
             `- 您需要有自己的独立域名，暂且不同意公有子域名或免费域名的友链申请 (如 github.io, vercel.app, eu.org, js.cool, .tk, .ml, .cf 等)`,
             `- 暂时不同意商业及非个人的网站的友链申请 (py 除外)。`,
-          ].join('\n\n')}
+          ].join('\n\n')} */}
+          {`- 申请友链前请**务必确保**贵站有我站的友链，若审批通过后移除本站链接，本站也将移除友链，并加入黑名单。
+- 若站点长时间无法访问，我会删除您的友链，恢复后可再次申请。
+- 确保您的网站不存在政治敏感问题及违法内容。没有过多的广告、无恶意软件、脚本。且转载文章须注明出处。
+- 确保站点全局启用 HTTPS
+- 您需要有自己的独立域名，暂且不同意公有子域名或免费域名的友链申请 (如 github.io, vercel.app, eu.org, js.cool, .tk, .ml, .cf 等)
+- 暂时不同意商业及非个人的网站的友链申请 (朋友除外)。`}
         </Markdown>
         <Markdown className="[&_p]:!my-1">
           {[

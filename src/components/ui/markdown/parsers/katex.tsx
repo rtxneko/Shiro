@@ -9,10 +9,14 @@ import type { FC } from 'react'
 import 'katex/dist/katex.min.css'
 
 //  $ c = \pm\sqrt{a^2 + b^2} $
-export const KateXRule: MarkdownToJSX.Rule = {
+export const KateXRule: MarkdownToJSX.Rule<{
+  type: string
+  katex: string
+}> = {
   match: simpleInlineRegex(
     /^(?!\\)\$\s{0,}((?:\[(?:[^$]|(?=\\)\$)*?\]|<(?:[^$]|(?=\\)\$)*?>(?:(?:[^$]|(?=\\)\$)*?<(?:[^$]|(?=\\)\$)*?>)?|`(?:[^$]|(?=\\)\$)*?`|(?:[^$]|(?=\\)\$))*?)\s{0,}(?!\\)\$/,
   ),
+
   order: Priority.MED,
   parse(capture) {
     return {
@@ -20,7 +24,7 @@ export const KateXRule: MarkdownToJSX.Rule = {
       katex: capture[1],
     }
   },
-  react(node, output, state) {
+  render(node, output, state) {
     return <LateX key={state?.key}>{node.katex}</LateX>
   },
 }
@@ -62,7 +66,12 @@ const LateX: FC<LateXProps> = (props) => {
   return <span dangerouslySetInnerHTML={{ __html: html }} />
 }
 
-export const KateXBlockRule: MarkdownToJSX.Rule = {
+export const KateXBlockRule: MarkdownToJSX.Rule<{
+  type: string
+  groups: {
+    content: string
+  }
+}> = {
   match: blockRegex(
     new RegExp(`^\\s*\\$\\$ *(?<content>[\\s\\S]+?)\\s*\\$\\$ *(?:\n *)+\n?`),
   ),
@@ -71,10 +80,10 @@ export const KateXBlockRule: MarkdownToJSX.Rule = {
   parse(capture) {
     return {
       type: 'kateXBlock',
-      groups: capture.groups,
+      groups: capture.groups as any,
     }
   },
-  react(node, _, state?) {
+  render(node, _, state?) {
     return (
       <div className="scrollbar-none overflow-auto" key={state?.key}>
         <LateX mode="display">{node.groups.content}</LateX>

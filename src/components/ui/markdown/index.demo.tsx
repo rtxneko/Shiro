@@ -80,7 +80,7 @@ export const MarkdownCustomize: DocumentComponent = () => {
             value={customize}
             extendsRules={{
               codeBlock: {
-                react(node, output, state) {
+                render(node, output, state) {
                   return (
                     <CodeBlockRender
                       key={state?.key}

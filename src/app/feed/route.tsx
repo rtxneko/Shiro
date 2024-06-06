@@ -97,7 +97,7 @@ export async function GET() {
               },
               extendsRules: {
                 codeBlock: {
-                  react(node, output, state) {
+                  render(node, output, state) {
                     if (
                       node.lang === 'mermaid' ||
                       node.lang === 'excalidraw' ||
@@ -172,20 +172,20 @@ const NotSupportRender = () => {
 
 const KateXRule: MarkdownToJSX.Rule = {
   ...__KateXRule,
-  react(node, _, state?) {
+  render(node, _, state?) {
     return <NotSupportRender key={state?.key} />
   },
 }
 const KateXBlockRule: MarkdownToJSX.Rule = {
   ...__KateXBlockRule,
-  react(node, _, state?) {
+  render(node, _, state?) {
     return <NotSupportRender key={state?.key} />
   },
 }
 
 const AlertsRule: MarkdownToJSX.Rule = {
   ...__AlertsRule,
-  react(node, output, state) {
+  render(node, output, state) {
     return <NotSupportRender key={state?.key} />
   },
 }
@@ -193,7 +193,7 @@ const AlertsRule: MarkdownToJSX.Rule = {
 const ContainerRule: MarkdownToJSX.Rule = {
   ...__ContainerRule,
   // @ts-ignore
-  react(node, _, state) {
+  render(node, _, state) {
     return <NotSupportRender key={state?.key} />
   },
 }

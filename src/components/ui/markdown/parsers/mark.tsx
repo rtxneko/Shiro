@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   parseCaptureInline,
   Priority,
@@ -7,14 +6,14 @@ import {
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
 //  ==Mark==
-export const MarkRule: MarkdownToJSX.Rule = {
+export const MarkRule: MarkdownToJSX.Rule<MarkdownToJSX.MarkedTextNode> = {
   match: simpleInlineRegex(/^==((?:\[.*?\]|<.*?>(?:.*?<.*?>)?|`.*?`|.)*?)==/),
   order: Priority.LOW,
   parse: parseCaptureInline,
-  react(node, output, state?) {
+  render(node, output, state?) {
     return (
       <mark key={state?.key} className="rounded-md">
-        <span className="px-1">{output(node.content, state!)}</span>
+        <span className="px-1">{output(node.children, state!)}</span>
       </mark>
     )
   },

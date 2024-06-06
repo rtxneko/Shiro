@@ -63,7 +63,10 @@ export const AlertIcon: FC<{
 const ALERT_BLOCKQUOTE_R =
   /^(> \[!(?<type>NOTE|IMPORTANT|WARNING)\].*?)(?<body>(?:\n *>.*?)*)(?=\n{2,}|$)/
 
-export const AlertsRule: MarkdownToJSX.Rule = {
+export const AlertsRule: MarkdownToJSX.Rule<{
+  raw: string
+  parsed: any
+}> = {
   match: blockRegex(ALERT_BLOCKQUOTE_R),
   order: Priority.HIGH,
   parse(capture) {
@@ -74,14 +77,14 @@ export const AlertsRule: MarkdownToJSX.Rule = {
       },
     }
   },
-  react(node, output, state) {
+  render(node, output, state) {
     const { type, body } = node.parsed
     const bodyClean = body.replace(/^> */gm, '')
 
     return (
       <blockquote
         className={clsx(borderColorMap[type], 'not-italic')}
-        key={state.key}
+        key={state?.key}
       >
         <AlertIcon type={type as any} />
         <br />

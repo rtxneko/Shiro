@@ -2,6 +2,7 @@
 
 import { Priority } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
+import type { BannerType } from '../../banner/Banner'
 
 import { clsxm } from '~/lib/helper'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
@@ -28,7 +29,13 @@ const shouldCatchContainerName = [
   'grid',
 ].join('|')
 
-export const ContainerRule: MarkdownToJSX.Rule = {
+export const ContainerRule: MarkdownToJSX.Rule<{
+  node: {
+    type: string
+    params?: any
+    content: string
+  }
+}> = {
   match: (source: string) => {
     const result =
       /^\s*::: *(?<type>.*?) *(?:{(?<params>.*?)})? *\n(?<content>[\s\S]+?)\s*::: *(?:\n *)+\n?/.exec(
@@ -45,11 +52,11 @@ export const ContainerRule: MarkdownToJSX.Rule = {
   parse(capture) {
     const { groups } = capture
     return {
-      node: { ...groups },
+      node: { ...groups } as any,
     }
   },
 
-  react(node, _, state) {
+  render(node, _, state) {
     const { type, params, content } = node.node
 
     switch (type) {
@@ -150,7 +157,7 @@ export const ContainerRule: MarkdownToJSX.Rule = {
             return (
               <GridMarkdownImages
                 height={rows && cols ? +rows / +cols : 1}
-                key={state.key}
+                key={state?.key}
                 imagesSrc={imagesSrc}
                 Wrapper={Grid}
               />
@@ -184,7 +191,7 @@ type ParsedResult = {
   [key: string]: string
 }
 
-function parseParams(input: string): ParsedResult {
+function parseParams(input: BannerType): ParsedResult {
   const regex = /(\w+)=(\w+)/g
   let match: RegExpExecArray | null
   const result: ParsedResult = {}

@@ -155,7 +155,7 @@ export const NoteHeaderMetaInfoSetting = () => {
 }
 const MarkdownRenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {
   text: {
-    react(node, _, state) {
+    render(node, _, state) {
       return <span key={state?.key}>{node.content}</span>
     },
   },
